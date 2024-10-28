@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias alias="admin" type="com.boot.entity.Admin" />
+		<typeAlias alias="users" type="com.boot.entity.Users" />
+		<typeAlias alias="article" type="com.boot.entity.Article" />
+		<typeAlias alias="cate" type="com.boot.entity.Cate" />
+		<typeAlias alias="views" type="com.boot.entity.Views" />
+		<typeAlias alias="cart" type="com.boot.entity.Cart" />
+		<typeAlias alias="orders" type="com.boot.entity.Orders" />
+		<typeAlias alias="fav" type="com.boot.entity.Fav" />
+		<typeAlias alias="hist" type="com.boot.entity.Hist" />
+		<typeAlias alias="topic" type="com.boot.entity.Topic" />
+		<typeAlias alias="complains" type="com.boot.entity.Complains" />
+		<typeAlias alias="bbs" type="com.boot.entity.Bbs" />
+		<typeAlias alias="rebbs" type="com.boot.entity.Rebbs" />
+		<typeAlias alias="strategy" type="com.boot.entity.Strategy" />
+	</typeAliases>
+	<mappers>
+		<mapper resource="mapper/admin.xml" />
+		<mapper resource="mapper/users.xml" />
+		<mapper resource="mapper/article.xml" />
+		<mapper resource="mapper/cate.xml" />
+		<mapper resource="mapper/views.xml" />
+		<mapper resource="mapper/cart.xml" />
+		<mapper resource="mapper/orders.xml" />
+		<mapper resource="mapper/fav.xml" />
+		<mapper resource="mapper/hist.xml" />
+		<mapper resource="mapper/topic.xml" />
+		<mapper resource="mapper/complains.xml" />
+		<mapper resource="mapper/bbs.xml" />
+		<mapper resource="mapper/rebbs.xml" />
+		<mapper resource="mapper/strategy.xml" />
+	</mappers>
+</configuration>
+
+
+
+
+

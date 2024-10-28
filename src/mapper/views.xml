@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 配置Mabatis映射文件 -->
+<mapper namespace="com.boot.dao.ViewsDAO">
+	<resultMap type="views" id="viewsMap">
+		<id property="viewsid" column="viewsid" />
+		<result property="viewsname" column="viewsname" />
+		<result property="cateid" column="cateid" />
+		<result property="image" column="image" />
+		<result property="price" column="price" />
+		<result property="stars" column="stars" />
+		<result property="recommed" column="recommed" />
+		<result property="addtime" column="addtime" />
+		<result property="hits" column="hits" />
+		<result property="sellnum" column="sellnum" />
+		<result property="address" column="address" />
+		<result property="contents" column="contents" />
+		<result property="catename" column="catename" />
+	</resultMap>
+	<!-- 插入语句 DAO通过id调用此配置 -->
+	<insert id="insertViews" parameterType="views">
+		insert into views(viewsid , viewsname , cateid , image , price , stars , recommed , addtime , hits , sellnum , address , contents ) values(#{viewsid} , #{viewsname}
+		, #{cateid} , #{image} , #{price} , #{stars} , #{recommed} , #{addtime} , #{hits} , #{sellnum} , #{address} , #{contents} )
+	</insert>
+	<!-- 更新语句 DAO通过id调用此配置 -->
+	<update id="updateViews" parameterType="views">
+		update views set viewsname=#{viewsname} , cateid=#{cateid} , image=#{image} , price=#{price} , stars=#{stars} , recommed=#{recommed} , addtime=#{addtime} ,
+		hits=#{hits} , sellnum=#{sellnum} , address=#{address} , contents=#{contents} where viewsid=#{viewsid}
+	</update>
+	<!-- 按主键删除 DAO通过id调用此配置 -->
+	<delete id="deleteViews" parameterType="String">
+		delete from views where viewsid = #{viewsid}
+	</delete>
+	<!-- 查询全部信息 DAO通过id调用此配置 -->
+	<select id="getAllViews" resultMap="viewsMap">
+		select a.* , b.catename from views a , cate b where a.cateid = b.cateid order by viewsid desc
+	</select>
+	<select id="getViewsByNews" resultMap="viewsMap">
+		select a.* , b.catename from views a , cate b where a.cateid = b.cateid order by Viewsid desc
+		limit 5
+	</select>
+	<select id="getViewsByHot" resultMap="viewsMap">
+		select a.* , b.catename from views a , cate b where a.cateid = b.cateid
+		order by sellnum desc limit 5
+	</select>
+	<select id="getViewsByCate" parameterType="String" resultMap="viewsMap">
+		select a.* , b.catename from views a , cate b where a.cateid = b.cateid
+		and a.cateid=#{cateid} order by sellnum desc limit 5
+	</select>
+	<!-- 按主键查询 DAO通过id调用此配置 -->
+	<select id="getViewsById" parameterType="String" resultMap="viewsMap">
+		select a.* , b.catename from views a , cate b where a.cateid = b.cateid and viewsid=#{viewsid} order by viewsid desc
+	</select>
+	<!-- 按条件精确查询 DAO通过id调用此配置 -->
+	<select id="getViewsByCond" parameterType="views" resultMap="viewsMap">
+		select a.* , b.catename from views a , cate b where a.cateid = b.cateid
+		<if test="viewsname != null and '' != viewsname">
+			and a.viewsname = #{viewsname}
+		</if>
+		<if test="cateid != null and '' != cateid">
+			and a.cateid = #{cateid}
+		</if>
+		<if test="image != null and '' != image">
+			and a.image = #{image}
+		</if>
+		<if test="price != null and '' != price">
+			and a.price = #{price}
+		</if>
+		<if test="stars != null and '' != stars">
+			and a.stars = #{stars}
+		</if>
+		<if test="recommed != null and '' != recommed">
+			and a.recommed = #{recommed}
+		</if>
+		<if test="addtime != null and '' != addtime">
+			and a.addtime = #{addtime}
+		</if>
+		<if test="hits != null and '' != hits">
+			and a.hits = #{hits}
+		</if>
+		<if test="sellnum != null and '' != sellnum">
+			and a.sellnum = #{sellnum}
+		</if>
+		<if test="address != null and '' != address">
+			and a.address = #{address}
+		</if>
+		<if test="contents != null and '' != contents">
+			and a.contents = #{contents}
+		</if>
+	</select>
+	<!-- 按条件模糊查询 DAO通过id调用此配置 -->
+	<select id="getViewsByLike" parameterType="views" resultMap="viewsMap">
+		select a.* , b.catename from views a , cate b where a.cateid = b.cateid
+		<if test="viewsname != null and '' != viewsname">
+			and a.viewsname like CONCAT('%', CONCAT(#{viewsname}, '%'))
+		</if>
+		<if test="cateid != null and '' != cateid">
+			and b.catename like CONCAT('%', CONCAT(#{cateid}, '%'))
+		</if>
+		<if test="image != null and '' != image">
+			and a.image like CONCAT('%', CONCAT(#{image}, '%'))
+		</if>
+		<if test="price != null and '' != price">
+			and a.price like CONCAT('%', CONCAT(#{price}, '%'))
+		</if>
+		<if test="stars != null and '' != stars">
+			and a.stars like CONCAT('%', CONCAT(#{stars}, '%'))
+		</if>
+		<if test="recommed != null and '' != recommed">
+			and a.recommed like CONCAT('%', CONCAT(#{recommed}, '%'))
+		</if>
+		<if test="addtime != null and '' != addtime">
+			and a.addtime like CONCAT('%', CONCAT(#{addtime}, '%'))
+		</if>
+		<if test="hits != null and '' != hits">
+			and a.hits like CONCAT('%', CONCAT(#{hits}, '%'))
+		</if>
+		<if test="sellnum != null and '' != sellnum">
+			and a.sellnum like CONCAT('%', CONCAT(#{sellnum}, '%'))
+		</if>
+		<if test="address != null and '' != address">
+			and a.address like CONCAT('%', CONCAT(#{address}, '%'))
+		</if>
+		<if test="contents != null and '' != contents">
+			and a.contents like CONCAT('%', CONCAT(#{contents}, '%'))
+		</if>
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

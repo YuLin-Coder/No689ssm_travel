@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 配置Mabatis映射文件 -->
+<mapper namespace="com.boot.dao.HistDAO">
+	<resultMap type="hist" id="histMap">
+		<id property="histid" column="histid" />
+		<result property="usersid" column="usersid" />
+		<result property="viewsid" column="viewsid" />
+		<result property="num" column="num" />
+		<result property="username" column="username" />
+		<result property="viewsname" column="viewsname" />
+	</resultMap>
+	<!-- 插入语句 DAO通过id调用此配置 -->
+	<insert id="insertHist" parameterType="hist">
+		insert into hist(histid , usersid , viewsid , num ) values(#{histid} , #{usersid} , #{viewsid} , #{num} )
+	</insert>
+	<!-- 更新语句 DAO通过id调用此配置 -->
+	<update id="updateHist" parameterType="hist">
+		update hist set usersid=#{usersid} , viewsid=#{viewsid} , num=#{num} where histid=#{histid}
+	</update>
+	<!-- 按主键删除 DAO通过id调用此配置 -->
+	<delete id="deleteHist" parameterType="String">
+		delete from hist where histid = #{histid}
+	</delete>
+	<!-- 查询全部信息 DAO通过id调用此配置 -->
+	<select id="getAllHist" resultMap="histMap">
+		select a.* , b.username , c.viewsname from hist a , users b , views c where a.usersid = b.usersid and a.viewsid = c.viewsid order by histid desc
+	</select>
+	<!-- 按主键查询 DAO通过id调用此配置 -->
+	<select id="getHistById" parameterType="String" resultMap="histMap">
+		select a.* , b.username , c.viewsname from hist a , users b , views c where a.usersid = b.usersid and a.viewsid = c.viewsid and histid=#{histid} order by histid
+		desc
+	</select>
+	<!-- 按条件精确查询 DAO通过id调用此配置 -->
+	<select id="getHistByCond" parameterType="hist" resultMap="histMap">
+		select a.* , b.username , c.viewsname from hist a , users b , views c where a.usersid = b.usersid and a.viewsid = c.viewsid
+		<if test="usersid != null and '' != usersid">
+			and a.usersid = #{usersid}
+		</if>
+		<if test="viewsid != null and '' != viewsid">
+			and a.viewsid = #{viewsid}
+		</if>
+		<if test="num != null and '' != num">
+			and a.num = #{num}
+		</if>
+	</select>
+	<!-- 按条件模糊查询 DAO通过id调用此配置 -->
+	<select id="getHistByLike" parameterType="hist" resultMap="histMap">
+		select a.* , b.username , c.viewsname from hist a , users b , views c where a.usersid = b.usersid and a.viewsid = c.viewsid
+		<if test="usersid != null and '' != usersid">
+			and b.username like CONCAT('%', CONCAT(#{usersid}, '%'))
+		</if>
+		<if test="viewsid != null and '' != viewsid">
+			and c.viewsname like CONCAT('%', CONCAT(#{viewsid}, '%'))
+		</if>
+		<if test="num != null and '' != num">
+			and a.num like CONCAT('%', CONCAT(#{num}, '%'))
+		</if>
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
